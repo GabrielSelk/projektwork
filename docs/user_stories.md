@@ -1,16 +1,22 @@
 # **User Stories**
 
-**As a** test automation student of Masterfield 
-**I want** to automate some features of "https://go.bkk.hu/"
-**so that** my project work is finished.
+**As a** normal user **I want** to access and navigate on "https://go.bkk.hu/"
+**so that** I can set up a starting point and destination for a route in Budapest. 
 
-### Features
-1. Cookie handling
-2. Setting up route in Utazástervezés: Honnan (A), Hova (B), after that click on Tervezés button.
-3. Asserting and testing out results in Lehetséges utvonalak.
 
-### Acceptance Criteria 
-1. I can click and accept the cookie pop-up and after it disappears, and doesn't pop up after I reload the page.
-2. I can give valid inputs to textfield (A) and (B), and can click on (Tervezés) button after.
-3. I can see (Assert existance off) the results, and click on given result, to trigger proper responce on the map.
+1. **US1** Cookie handling 
+   - **As a** user I want to handle the site Cookies
+2. **US2** Route search
+   - **As a** user I want to set up a route between point "A" and "B" with the "Utazástervezés" feature.
+3. **US3** Accessing results
+   - **As a** user want to select and use one of the search results for routes.
+4. **US4** Language change 
+   - **As a** user I want to be able to switch languages on the site.
+5. **US5** Search sub-menu 
+   - **As a** user I want to select a different methods of travel in the "Tervezési beállítások" feature.
+6. **US6** Map handling
+   - **As a** user I want to select a bus route on the map and see the result.
+
+
+
 
