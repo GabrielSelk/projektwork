@@ -14,8 +14,10 @@
    - **As a** user I want to be able to switch languages on the site.
 5. **US5** Search sub-menu 
    - **As a** user I want to select a different methods of travel in the "Tervezési beállítások" feature.
-6. **US6** Map handling
+6. **US6** Vehicle route selection
    - **As a** user I want to select a bus route on the map and see the result.
+7. **US7** Map handling
+   - **As a** user I want to select a stop on the map and see the result.
 
 
 
