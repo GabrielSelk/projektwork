@@ -4,7 +4,9 @@ import browser.BrowserType;
 import browser.DriverInitializer;
 import browser.Settings;
 import io.cucumber.java.After;
+import io.cucumber.java.AfterAll;
 import io.cucumber.java.Before;
+import io.cucumber.java.BeforeAll;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -50,18 +52,29 @@ public class siteSetupSteps {
 
     @Given("the language is set to {string}")
     public void theLanguageIsSetTo(String arg0) {
+        By title = By.tagName("h2");
+        String titleText = driver.findElement(title).getText();
+        Assertions.assertEquals("Utazástervezés", titleText, "The language is not hungarian.");
+
     }
 
     @When("I change the language to {string}")
     public void iChangeTheLanguageTo(String arg0) {
+        By englishButton = By.xpath("//span[@title='english']");
+        driver.findElement(englishButton).click();
     }
 
     @And("I change the language back to {string}")
     public void iChangeTheLanguageBackTo(String arg0) {
+        By hungarianButton = By.xpath("//span[@title='magyar']");
+        driver.findElement(hungarianButton).click();
     }
 
     @Then("language is changed to <newPageLanguage>")
     public void languageIsChangedToNewPageLanguage() {
+        By title = By.tagName("h2");
+        String titleText = driver.findElement(title).getText();
+        Assertions.assertEquals("Utazástervezés", titleText, "The language is not hungarian.");
     }
 
     @After
