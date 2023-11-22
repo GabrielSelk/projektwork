@@ -3,7 +3,7 @@ Feature: As a normal user I want to be able to handle cookies and change languag
   Rule: Open the page as a normal user
 
     Background:
-      Given I open the site "https://go.bkk.hu"
+      Given I open the site "go.bkk.hu"
 
     @CookieHandling
     Scenario:
