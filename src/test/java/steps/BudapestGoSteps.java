@@ -1,11 +1,11 @@
 package steps;
 
+import BudapestGoPages.BGOHomePage;
 import browser.BrowserType;
 import browser.DriverInitializer;
 import browser.Settings;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -13,24 +13,28 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
 
 import java.time.Duration;
 import java.util.List;
 
-public class siteSetupSteps {
+public class BudapestGoSteps  {
 
     WebDriver driver;
+    BGOHomePage bgoHomePage;
+
+    public BudapestGoSteps() {}
+
 
     @Before
     public void openBrowser() {
         driver = DriverInitializer.initDriver(BrowserType.CHROME_SELENIUM_MGR);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        bgoHomePage = new BGOHomePage(driver);
     }
 
-    @Given("I open the site {string}")
-    public void iOpenTheSite(String arg0) {
+    @Given("I open BudapestGo")
+    public void iOpenBudapestGo() {
         driver.get(Settings.BASE_URL);
     }
 
@@ -48,9 +52,14 @@ public class siteSetupSteps {
     }
 
     @Given("the language is set to {string}")
-    public void theLanguageIsSetTo(String arg0) {
-        By cookieButton = By.xpath("//button[text()='Elfogadom']");
-        driver.findElement(cookieButton).click();
+    public void theLanguageIsSetTo(String lang) {
+
+        bgoHomePage.acceptCookiesIfPresent(); //If cookie pop-up would block elements it's handled.
+
+        if(lang.equals("english")) {
+            bgoHomePage.hungarianButton.click();
+        }
+        if(lang.equals("hungarian")) { }   //If language is Hungarian, do nothing.
 
         By title = By.tagName("h2");
         String titleText = driver.findElement(title).getText();
@@ -59,26 +68,26 @@ public class siteSetupSteps {
     }
 
     @When("I change the language to {string}")
-    public void iChangeTheLanguageTo(String arg0) {
-        By englishButton = By.xpath("//span[@title='english']");
-        driver.findElement(englishButton).click();
-    }
+    public void iChangeTheLanguageTo(String lang) {
 
-    @And("I change the language back to {string}")
-    public void iChangeTheLanguageBackTo(String arg0) {
+        if(lang.equals("hungarian")) {
+            bgoHomePage.englishButton.click();
+        }
+        if(lang.equals("english")) { }   //If language is English, do nothing.
 
-        By hungarianButton = By.xpath("//span[@title='magyar']");
-        driver.findElement(hungarianButton).click();
-    }
-
-    //Miért fail-el el? Talán túl gyors neki és még nincs betöltve az oldal? Beteszek egy wait-et.
-    @Then("language is changed to <newPageLanguage>")
-    public void languageIsChangedToNewPageLanguage() {
         By title = By.tagName("h2");
+        String titleText = driver.findElement(title).getText();
+        Assertions.assertEquals("Trip Planner", titleText, "The language is not english.");
+    }
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(title));
+    @Then("language is changed to {string}")
+    public void languageIsChangedToNewPageLanguage(String lang) {
+        if(lang.equals("english")) {
+            bgoHomePage.hungarianButton.click();
+        }
+        if(lang.equals("hungarian")) { }   //If language is Hungarian, do nothing.
 
+        By title = By.tagName("h2");
         String titleText = driver.findElement(title).getText();
         Assertions.assertEquals("Utazástervezés", titleText, "The language is not hungarian.");
     }
@@ -87,4 +96,6 @@ public class siteSetupSteps {
     public void closeBrowser() {
         driver.quit();
     }
+
+
 }

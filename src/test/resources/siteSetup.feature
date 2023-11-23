@@ -3,7 +3,8 @@ Feature: As a normal user I want to be able to handle cookies and change languag
   Rule: Open the page as a normal user
 
     Background:
-      Given I open the site "go.bkk.hu"
+      Given I open BudapestGo
+
 
     @CookieHandling
     Scenario:
@@ -11,12 +12,12 @@ Feature: As a normal user I want to be able to handle cookies and change languag
       Then The cookie pop-up disappears
 
 
+
     @LanguageChange
     Scenario Outline: Change language
       Given the language is set to "<newPageLanguage>"
       When I change the language to "<newLanguage>"
-      And I change the language back to "<newPageLanguage>"
-      Then language is changed to <newPageLanguage>
+      Then language is changed to "<newPageLanguage>"
 
       Examples:
         | newPageLanguage | newLanguage |
